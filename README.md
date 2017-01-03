@@ -21,4 +21,3 @@
 ./admin make生成main_server和mysql两个可执行文件
 * mysql 初始化数据库
 * main_server 游戏主服务
-
