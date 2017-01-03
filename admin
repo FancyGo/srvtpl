@@ -1,0 +1,41 @@
+#!/bin/bash
+workdir=$(cd `dirname $0`; pwd)
+srcdir=$workdir/src/server
+scptdir=$workdir/script
+GOPATH=$GOPATH:$workdir
+export GOPATH
+
+useropt=$1
+shift 1
+target=$@
+
+usage()
+{
+    echo "make"
+    echo "run"
+    echo "stop"
+}
+
+main()
+{
+    case $useropt in
+        make | m)
+            cd $scptdir
+            ./_build $srcdir $target
+            ;;
+        run)
+            ./bin/main_server fancy_server >> ./log/core.game.log 2>&1 &
+            ;;
+        stop)
+            cd $scptdir
+            ./_stop $target
+            ;;
+        *)
+            usage
+            ;;
+    esac
+}
+
+set +x
+main
+set -x
